@@ -36,26 +36,20 @@ if gender == "Male":
 elif gender == "Female":
     gender_encoded = 0
 
-input_features = [
-    credit_score,
-    geo_enco,  
-    gender_encoded,     
-    age,
-    tenure,
-    balance,
-    num_of_prods,
-    has_cr_card,
-    is_active_member,
-    est_salary
-]
-
-# Convert to numpy array
-input_array = np.array([input_features])
-
 # Make prediction on button click
 if st.button("Predict"):
+    
+    
+    import pandas as pd
+    
+    input_df = pd.DataFrame([[
+        credit_score, geo_enco, gender_encoded, age, tenure,
+        balance, num_of_prods, has_cr_card, is_active_member, est_salary]],
+     columns=['CreditScore', 'Geography', 'Gender', 'Age', 'Tenure', 
+    'Balance', 'NumOfProducts', 'HasCrCard', 'IsActiveMember', 'EstimatedSalary'])
+    
     # Scale input data
-    input_scaled = scaler.transform(input_array)
+    input_scaled = scaler.transform(input_df)
     
     # Make Predictions on scaled input
     prediction = model.predict_proba(input_scaled)
